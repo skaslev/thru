@@ -35,9 +35,9 @@ To measure vsock throughput from guest to host start ``./vsock_listen`` on the h
 
 and then run ``./vsock`` on the guest::
 
-    you@guest:~/src/vsock # ./vsock -n1000000
+    you@guest:~/src/vsock # ./vsock -n 1000000
     local CID: 3
-    wrote 965.652985 MB/s
+    965.652985 MB/s
 
 To measure throughput from host to guest start ``./vsock_listen`` on the guest::
 
@@ -46,13 +46,13 @@ To measure throughput from host to guest start ``./vsock_listen`` on the guest::
 
 and then run ``./vsock`` on the host::
 
-    you@host:~/src/vsock # ./vsock -c3 -n1000000
+    you@host:~/src/vsock # ./vsock -c 3 -n 1000000
     local CID: 2
-    wrote 1183.508784 MB/s
+    1183.508784 MB/s
 
 Likewise for FIFO, TCP and UDP, e.g.::
 
     you@host:~/src/vsock$ ./fifo_listen
 
-    you@guest:~/src/vsock$ ./fifo -n1000000
-    wrote 3440.153267 MB/s
+    you@guest:~/src/vsock$ ./fifo -n 1000000
+    3440.153267 MB/s
