@@ -40,7 +40,6 @@ int main(int argc, char **argv)
 		err(-1, "listen");
 
 	do_serve(sd);
-
 	close(sd);
 
 	return 0;

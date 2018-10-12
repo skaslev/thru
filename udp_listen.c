@@ -37,7 +37,6 @@ int main(int argc, char **argv)
 		err(-1, "bind");
 
 	do_serve_dgram(sd);
-
 	close(sd);
 
 	return 0;

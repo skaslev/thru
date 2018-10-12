@@ -13,7 +13,6 @@ int main(int argc, char **argv)
 		err(-1, "open");
 
 	do_serve_dgram(fd);
-
 	close(fd);
 
 	return 0;
