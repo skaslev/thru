@@ -10,8 +10,8 @@ LIBS =
 
 PROGRAMS = fifo fifo_listen tcp tcp_listen udp udp_listen vsock vsock_listen
 
-LIB_H = compiler.h vsock.h xrandom.h xtime.h
-LIB_OBJS =
+LIB_H = compiler.h core.c vsock.h xrandom.h xtime.h
+LIB_OBJS = core.o
 LIB_FILE = libvsock.a
 
 #
