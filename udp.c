@@ -50,11 +50,10 @@ int main(int argc, char **argv)
 	if (sd < 0)
 		err(-1, "socket");
 
-	if (dont_route) {
-		if (setsockopt(sd, SOL_SOCKET, SO_DONTROUTE,
-			       &dont_route, sizeof(dont_route)))
-			err(-1, "setsockopt");
-	}
+	if (dont_route &&
+	    setsockopt(sd, SOL_SOCKET, SO_DONTROUTE,
+		       &dont_route, sizeof(dont_route)))
+		err(-1, "setsockopt");
 
 	if (connect(sd, (struct sockaddr *)&addr, sizeof(addr)))
 		err(-1, "connect");
