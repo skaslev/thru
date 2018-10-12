@@ -5,12 +5,13 @@
 #include <unistd.h>
 #include <linux/vm_sockets.h>
 
+#include "cmd.h"
 #include "core.h"
 #include "vsock.h"
 
-#define USAGE		"Usage: %s [-n nr_packets] [-c cid] [-p port]"
+#define USAGE	"[-n nr_packets] [-c cid] [-p port]"
 
-int main(int argc, char **argv)
+static int vsock_main(int argc, char **argv)
 {
 	int opt, nr_packets = 1 << 12, cid = VMADDR_CID_HOST, port = 4242;
 	struct sockaddr_vm addr;
@@ -28,7 +29,7 @@ int main(int argc, char **argv)
 			port = atoi(optarg);
 			break;
 		default:
-			errx(-1, USAGE, argv[0]);
+			errx(-1, "Usage: %s " USAGE, argv[0]);
 		}
 	}
 
@@ -52,3 +53,9 @@ int main(int argc, char **argv)
 
 	return 0;
 }
+
+struct cmd vsock_cmd = {
+	.name = "vsock",
+	.main = vsock_main,
+	.usage = USAGE,
+};

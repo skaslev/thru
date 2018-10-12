@@ -5,11 +5,12 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include "cmd.h"
 #include "core.h"
 
-#define USAGE		"Usage: %s [-n nr_packets] [-h host] [-p port] [-d]"
+#define USAGE	"[-n nr_packets] [-h host] [-p port] [-d]"
 
-int main(int argc, char **argv)
+int tcp_main(int argc, char **argv)
 {
 	int opt, nr_packets = 1 << 12, port = 4242, dont_route = 0;
 	const char *hostname = "localhost";
@@ -32,7 +33,7 @@ int main(int argc, char **argv)
 			dont_route = 1;
 			break;
 		default:
-			errx(-1, USAGE, argv[0]);
+			errx(-1, "Usage: %s " USAGE, argv[0]);
 		}
 	}
 
@@ -63,3 +64,9 @@ int main(int argc, char **argv)
 
 	return 0;
 }
+
+struct cmd tcp_cmd = {
+	.name = "tcp",
+	.main = tcp_main,
+	.usage = USAGE,
+};

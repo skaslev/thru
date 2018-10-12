@@ -8,10 +8,11 @@ LIBS =
 #
 # CFLAGS += -O0 -DDEBUG -g3 -gdwarf-2
 
-PROGRAMS = fifo fifo_listen tcp tcp_listen udp udp_listen vsock vsock_listen
+PROGRAMS = thru
 
 LIB_H = compiler.h core.c vsock.h xrandom.h xtime.h
-LIB_OBJS = core.o
+LIB_OBJS = core.o fifo.o tcp.o udp.o vsock.o \
+ fifo_listen.o tcp_listen.o udp_listen.o vsock_listen.o
 LIB_FILE = libvsock.a
 
 #
@@ -26,23 +27,10 @@ QUIET_LINK    = $(Q:@=@echo    '     LINK     '$@;)
 
 all: $(PROGRAMS)
 
-fifo: fifo.o $(LIB_FILE)
-	$(QUIET_LINK)$(CC) $(LDFLAGS) -o $@ $< $(LIB_FILE) $(LIBS)
-fifo_listen: fifo_listen.o $(LIB_FILE)
-	$(QUIET_LINK)$(CC) $(LDFLAGS) -o $@ $< $(LIB_FILE) $(LIBS)
-tcp: tcp.o $(LIB_FILE)
-	$(QUIET_LINK)$(CC) $(LDFLAGS) -o $@ $< $(LIB_FILE) $(LIBS)
-tcp_listen: tcp_listen.o $(LIB_FILE)
-	$(QUIET_LINK)$(CC) $(LDFLAGS) -o $@ $< $(LIB_FILE) $(LIBS)
-udp: udp.o $(LIB_FILE)
-	$(QUIET_LINK)$(CC) $(LDFLAGS) -o $@ $< $(LIB_FILE) $(LIBS)
-udp_listen: udp_listen.o $(LIB_FILE)
-	$(QUIET_LINK)$(CC) $(LDFLAGS) -o $@ $< $(LIB_FILE) $(LIBS)
-vsock: vsock.o $(LIB_FILE)
-	$(QUIET_LINK)$(CC) $(LDFLAGS) -o $@ $< $(LIB_FILE) $(LIBS)
-vsock_listen: vsock_listen.o $(LIB_FILE)
+thru: thru.o $(LIB_FILE)
 	$(QUIET_LINK)$(CC) $(LDFLAGS) -o $@ $< $(LIB_FILE) $(LIBS)
 
+thru.o: $(LIB_H)
 fifo.o: $(LIB_H)
 fifo_listen.o: $(LIB_H)
 tcp.o: $(LIB_H)

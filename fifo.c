@@ -3,11 +3,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include "cmd.h"
 #include "core.h"
 
-#define USAGE		"Usage: %s [-n nr_packets]"
+#define USAGE	"[-n nr_packets]"
 
-int main(int argc, char **argv)
+static int fifo_main(int argc, char **argv)
 {
 	int opt, nr_packets = 1 << 12;
 	int fd;
@@ -18,7 +19,7 @@ int main(int argc, char **argv)
 			nr_packets = atoi(optarg);
 			break;
 		default:
-			errx(-1, USAGE, argv[0]);
+			errx(-1, "Usage: %s " USAGE, argv[0]);
 		}
 	}
 
@@ -31,3 +32,9 @@ int main(int argc, char **argv)
 
 	return 0;
 }
+
+struct cmd fifo_cmd = {
+	.name = "fifo",
+	.main = fifo_main,
+	.usage = USAGE,
+};

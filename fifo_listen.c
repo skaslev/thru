@@ -2,9 +2,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#include "cmd.h"
 #include "core.h"
 
-int main(int argc, char **argv)
+static int fifo_listen_main(int argc, char **argv)
 {
 	int fd;
 
@@ -17,3 +18,9 @@ int main(int argc, char **argv)
 
 	return 0;
 }
+
+struct cmd fifo_listen_cmd = {
+	.name = "fifo-listen",
+	.main = fifo_listen_main,
+	.usage = "",
+};

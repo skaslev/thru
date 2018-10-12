@@ -6,12 +6,13 @@
 #include <unistd.h>
 #include <linux/vm_sockets.h>
 
+#include "cmd.h"
 #include "core.h"
 #include "vsock.h"
 
-#define USAGE		"Usage: %s [-p port]"
+#define USAGE		"[-p port]"
 
-int main(int argc, char **argv)
+static int vsock_listen_main(int argc, char **argv)
 {
 	int opt, port = 4242;
 	struct sockaddr_vm addr;
@@ -23,7 +24,7 @@ int main(int argc, char **argv)
 			port = atoi(optarg);
 			break;
 		default:
-			errx(-1, USAGE, argv[0]);
+			errx(-1, "Usage: %s " USAGE, argv[0]);
 		}
 	}
 
@@ -50,3 +51,9 @@ int main(int argc, char **argv)
 
 	return 0;
 }
+
+struct cmd vsock_listen_cmd = {
+	.name = "vsock-listen",
+	.main = vsock_listen_main,
+	.usage = USAGE,
+};

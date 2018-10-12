@@ -28,31 +28,31 @@ Then start a guest specifying vsock cid and exposing the FIFO pair as virtserial
 Use
 ---
 
-To measure vsock throughput from guest to host start ``./vsock_listen`` on the host::
+To measure vsock throughput from guest to host start ``./thru vsock-listen`` on the host::
 
-    you@host:~/src/vsock # ./vsock_listen
+    you@host:~/src/vsock # ./thru vsock-listen
     local CID: 2
 
-and then run ``./vsock`` on the guest::
+and then run ``./thru vsock`` on the guest::
 
-    you@guest:~/src/vsock # ./vsock -n 1000000
+    you@guest:~/src/vsock # ./thru vsock -n 1000000
     local CID: 3
     965.652985 MB/s
 
-To measure throughput from host to guest start ``./vsock_listen`` on the guest::
+To measure throughput from host to guest start ``./thru vsock-listen`` on the guest::
 
-    you@guest:~/src/vsock # ./vsock_listen
+    you@guest:~/src/vsock # ./thru vsock-listen
     local CID: 3
 
-and then run ``./vsock`` on the host::
+and then run ``./thru vsock`` on the host::
 
-    you@host:~/src/vsock # ./vsock -c 3 -n 1000000
+    you@host:~/src/vsock # ./thru vsock -c 3 -n 1000000
     local CID: 2
     1183.508784 MB/s
 
 Likewise for FIFO, TCP and UDP, e.g.::
 
-    you@host:~/src/vsock$ ./fifo_listen
+    you@host:~/src/vsock$ ./thru fifo-listen
 
-    you@guest:~/src/vsock$ ./fifo -n 1000000
+    you@guest:~/src/vsock$ ./thru fifo -n 1000000
     3440.153267 MB/s

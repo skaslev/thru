@@ -4,11 +4,12 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include "cmd.h"
 #include "core.h"
 
-#define USAGE		"Usage: %s [-p port]"
+#define USAGE		"[-p port]"
 
-int main(int argc, char **argv)
+static int tcp_listen_main(int argc, char **argv)
 {
 	int opt, port = 4242;
 	struct sockaddr_in addr;
@@ -20,7 +21,7 @@ int main(int argc, char **argv)
 			port = atoi(optarg);
 			break;
 		default:
-			errx(-1, USAGE, argv[0]);
+			errx(-1, "Usage: %s " USAGE, argv[0]);
 		}
 	}
 
@@ -44,3 +45,9 @@ int main(int argc, char **argv)
 
 	return 0;
 }
+
+struct cmd tcp_listen_cmd = {
+	.name = "tcp-listen",
+	.main = tcp_listen_main,
+	.usage = USAGE,
+};
