@@ -1,0 +1,10 @@
+*.o
+*.a
+fifo
+fifo_listen
+tcp
+tcp_listen
+udp
+udp_listen
+vsock
+vsock_listen
