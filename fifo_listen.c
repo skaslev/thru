@@ -33,11 +33,13 @@ int main(int argc, char **argv)
 					continue;
 				err(-1, "read");
 			}
-			if (nread == 0)
-				break;
 
 			if (unlikely(!total))
 				clock_gettime(CLOCK_MONOTONIC, &t0);
+
+			if (nread == 0)
+				break;
+
 			total += nread;
 
 			if (nread == sizeof(EOF_MSG) &&
