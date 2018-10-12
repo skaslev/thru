@@ -31,7 +31,7 @@ static void usage()
 	size_t i;
 
 	printf("Usage: thru cmd\n");
-	printf("  where cmd can be any of:\n");
+	printf("  where `cmd` can be any of:\n");
 	for (i = 0; i < ARRAY_SIZE(cmds); i++)
 		printf("\t%s\t\t%s\n", cmds[i]->name, cmds[i]->usage);
 
