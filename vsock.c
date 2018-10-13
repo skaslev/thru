@@ -29,9 +29,12 @@ static int vsock_main(int argc, char **argv)
 			port = atoi(optarg);
 			break;
 		default:
-			errx(-1, "Usage: %s " USAGE, argv[0]);
+			goto usage;
 		}
 	}
+
+	if (optind < argc)
+		goto usage;
 
 	printf("local CID: %d\n", get_local_cid());
 
@@ -52,6 +55,9 @@ static int vsock_main(int argc, char **argv)
 	close(sd);
 
 	return 0;
+
+usage:
+	errx(-1, "Usage: %s " USAGE, argv[0]);
 }
 
 struct cmd vsock_cmd = {

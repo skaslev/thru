@@ -21,9 +21,12 @@ static int udp_listen_main(int argc, char **argv)
 			port = atoi(optarg);
 			break;
 		default:
-			errx(-1, "Usage: %s " USAGE, argv[0]);
+			goto usage;
 		}
 	}
+
+	if (optind < argc)
+		goto usage;
 
 	addr = (struct sockaddr_in) {
 		.sin_family = AF_INET,
@@ -41,6 +44,9 @@ static int udp_listen_main(int argc, char **argv)
 	close(sd);
 
 	return 0;
+
+usage:
+	errx(-1, "Usage: %s " USAGE, argv[0]);
 }
 
 struct cmd udp_listen_cmd = {

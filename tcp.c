@@ -33,9 +33,12 @@ int tcp_main(int argc, char **argv)
 			dont_route = 1;
 			break;
 		default:
-			errx(-1, "Usage: %s " USAGE, argv[0]);
+			goto usage;
 		}
 	}
+
+	if (optind < argc)
+		goto usage;
 
 	host = gethostbyname(hostname);
 	if (!host)
@@ -63,6 +66,9 @@ int tcp_main(int argc, char **argv)
 	close(sd);
 
 	return 0;
+
+usage:
+	errx(-1, "Usage: %s " USAGE, argv[0]);
 }
 
 struct cmd tcp_cmd = {
