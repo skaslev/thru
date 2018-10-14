@@ -1,6 +1,6 @@
-================================================
-vsock/fifo/tcp/udp guest to host throughput test
-================================================
+============================================================================
+thru: measures throughput between guest vm and host using fifo/tcp/udp/vsock
+============================================================================
 
 Setup
 -----
@@ -25,8 +25,8 @@ Then start a guest specifying vsock cid and exposing the FIFO pair as virtserial
     -device virtserialport,bus=virtio-serial0.0,nr=3,chardev=charchannel1,id=channel1,name=fifo0 \
     -device vhost-vsock-pci,id=vhost-vsock-pci0,guest-cid=3
 
-Use
----
+How to Use
+----------
 
 To measure vsock throughput from guest to host start ``./thru vsock-listen`` on the host::
 
