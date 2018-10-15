@@ -36,23 +36,23 @@ static void usage()
 		printf("\t%-16s\t%s\n", cmds[i]->name, cmds[i]->usage);
 
 	exit(-1);
-
 }
 
 int main(int argc, char **argv)
 {
-	char arg1[128];
+	char argv1[128];
 	size_t i;
 
 	if (argc < 2)
 		usage();
 
 	for (i = 0; i < ARRAY_SIZE(cmds); i++) {
-		if (strcmp(argv[1], cmds[i]->name) == 0) {
-			snprintf(arg1, sizeof(arg1), "thru %s", argv[1]);
-			argv[1] = arg1;
-			exit(cmds[i]->main(argc - 1, argv + 1));
-		}
+		if (strcmp(argv[1], cmds[i]->name) != 0)
+			continue;
+
+		snprintf(argv1, sizeof(argv1), "thru %s", argv[1]);
+		argv[1] = argv1;
+		exit(cmds[i]->main(argc - 1, argv + 1));
 	}
 
 	usage();
