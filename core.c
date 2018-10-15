@@ -12,11 +12,12 @@
 #include "xtime.h"
 
 #define EOM		"EOM"
+#define BUF_SIZE	4096
 
 void do_serve_dgram(int fd)
 {
 	struct timespec t0, t1, dt;
-	char buf[4096];
+	char buf[BUF_SIZE];
 	ssize_t nread;
 	size_t total;
 
@@ -81,7 +82,7 @@ void do_serve(int sd)
 	struct timespec t0, t1, dt;
 	struct sockaddr_storage peer_addr;
 	socklen_t peer_addr_len;
-	char buf[4096];
+	char buf[BUF_SIZE];
 	ssize_t nread;
 	size_t total;
 	int cd;
@@ -120,7 +121,7 @@ void do_write(int fd, int nr_packets)
 {
 	struct timespec t0, t1, dt;
 	size_t total = 0;
-	char buf[4096];
+	char buf[BUF_SIZE];
 	ssize_t nwrote;
 	int i;
 
