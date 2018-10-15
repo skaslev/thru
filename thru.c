@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 
 		snprintf(argv1, sizeof(argv1), "thru %s", argv[1]);
 		argv[1] = argv1;
-		exit(cmds[i]->main(argc - 1, argv + 1));
+		return cmds[i]->main(argc - 1, argv + 1);
 	}
 
 	usage();

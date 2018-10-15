@@ -50,11 +50,21 @@ void do_serve_dgram(int fd)
 
 static void log_connected(struct sockaddr *addr)
 {
+	char buf[INET6_ADDRSTRLEN];
+
 	switch (addr->sa_family) {
 	case AF_INET: {
 		struct sockaddr_in *a = (struct sockaddr_in *)addr;
 		printf("connected %s:%d\n",
-		       inet_ntoa(a->sin_addr), a->sin_port);
+		       inet_ntop(a->sin_family, &a->sin_addr, buf, sizeof(buf)),
+		       a->sin_port);
+		break;
+	}
+	case AF_INET6: {
+		struct sockaddr_in6 *a = (struct sockaddr_in6 *)addr;
+		printf("connected %s:%d\n",
+		       inet_ntop(a->sin6_family, &a->sin6_addr, buf, sizeof(buf)),
+		       a->sin6_port);
 		break;
 	}
 	case AF_VSOCK: {
