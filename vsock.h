@@ -3,7 +3,6 @@
 
 #include <fcntl.h>
 #include <sys/ioctl.h>
-#include <sys/types.h>
 #include <unistd.h>
 #include <linux/vm_sockets.h>
 
