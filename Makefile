@@ -10,7 +10,7 @@ LIBS =
 
 PROGRAMS = thru
 
-LIB_H = cmd.h compiler.h core.c vsock.h xrandom.h xtime.h
+LIB_H = cmd.h compiler.h core.h vsock.h xrandom.h xtime.h
 LIB_OBJS = core.o fifo.o tcp.o udp.o vsock.o \
  fifo_listen.o tcp_listen.o udp_listen.o vsock_listen.o
 LIB_FILE = libthru.a
