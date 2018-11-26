@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -O2 -Wall -Winline
+CFLAGS = -O2 -Wall -Winline -D_GNU_SOURCE
 AR = ar
 LIBS =
 

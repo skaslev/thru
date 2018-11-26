@@ -29,7 +29,7 @@ static int fifo_listen_main(int argc, char **argv)
 	if (fd < 0)
 		err(-1, "open");
 
-	do_serve_dgram(fd);
+	do_serve_dgram(fd, 0);
 	close(fd);
 
 	return 0;

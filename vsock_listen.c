@@ -14,13 +14,17 @@
 static int vsock_listen_main(int argc, char **argv)
 {
 	int opt, port = 4242;
+	unsigned serve_flags = 0;
 	struct sockaddr_vm addr;
 	int sd;
 
-	while ((opt = getopt(argc, argv, "p:")) != -1) {
+	while ((opt = getopt(argc, argv, "p:s")) != -1) {
 		switch (opt) {
 		case 'p':
 			port = atoi(optarg);
+			break;
+		case 's':
+			serve_flags |= SERVE_SPLICE;
 			break;
 		default:
 			goto usage;
@@ -48,7 +52,7 @@ static int vsock_listen_main(int argc, char **argv)
 	if (listen(sd, SOMAXCONN))
 		err(-1, "listen");
 
-	do_serve(sd);
+	do_serve(sd, serve_flags);
 	close(sd);
 
 	return 0;
