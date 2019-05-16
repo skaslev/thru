@@ -16,6 +16,7 @@
 
 #define USE_MEMFD
 /* #define DEBUG */
+#define OUT_FILENAME	"foo"
 
 #ifdef DEBUG
 #define pr(...)	printf(__VA_ARGS__)
@@ -33,14 +34,13 @@ static void do_serve_dgram_splice(int fd)
 	loff_t md_off = 0;
 	int md, brass[2];
 	size_t total;
-	int i __attribute__((unused)) = 0;
 
 #ifdef USE_MEMFD
 	md = memfd_create("buf", 0);
 	if (md < 0)
 		err(-1, "memfd_create");
 #else
-	md = open("foo", O_RDWR|O_CREAT|O_TRUNC, 0644);
+	md = open(OUT_FILENAME, O_RDWR|O_CREAT|O_TRUNC, 0644);
 	if (md < 0)
 		err(-1, "open");
 #endif
@@ -186,7 +186,7 @@ static void do_read(int fd)
 	if (md < 0)
 		err(-1, "memfd_create");
 #else
-	md = open("foo", O_RDWR|O_CREAT|O_TRUNC, 0644);
+	md = open(OUT_FILENAME, O_RDWR|O_CREAT|O_TRUNC, 0644);
 	if (md < 0)
 		err(-1, "open");
 #endif
@@ -229,7 +229,7 @@ static void do_splice_read(int fd)
 	if (md < 0)
 		err(-1, "memfd_create");
 #else
-	md = open("foo", O_RDWR|O_CREAT|O_TRUNC, 0644);
+	md = open(OUT_FILENAME, O_RDWR|O_CREAT|O_TRUNC, 0644);
 	if (md < 0)
 		err(-1, "open");
 #endif
@@ -292,6 +292,14 @@ void do_serve(int sd, unsigned flags)
 			do_read(cd);
 		close(cd);
 	}
+}
+
+void do_serve_fifo(int fd, unsigned flags)
+{
+	if (flags & SERVE_SPLICE)
+		do_splice_read(fd);
+	else
+		do_read(fd);
 }
 
 void do_write(int fd, int nr_packets)

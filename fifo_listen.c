@@ -10,12 +10,16 @@
 static int fifo_listen_main(int argc, char **argv)
 {
 	const char *filename = "/var/lib/test/fifo0.out";
+	unsigned flags = 0;
 	int opt, fd;
 
-	while ((opt = getopt(argc, argv, "f:")) != -1) {
+	while ((opt = getopt(argc, argv, "f:s")) != -1) {
 		switch (opt) {
 		case 'f':
 			filename = optarg;
+			break;
+		case 's':
+			flags |= SERVE_SPLICE;
 			break;
 		default:
 			goto usage;
@@ -29,7 +33,8 @@ static int fifo_listen_main(int argc, char **argv)
 	if (fd < 0)
 		err(-1, "open");
 
-	do_serve_dgram(fd, 0);
+
+	do_serve_fifo(fd, flags);
 	close(fd);
 
 	return 0;
